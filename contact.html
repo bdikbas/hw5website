@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Contact-Burak Dikbas Portfolio</title>
+    <script>
+        class HelloWorld extends HTMLElement {
+          constructor() {
+            super();
+            console.log("Hello world!");
+          }
+        }
+        customElements.define('hello-world', HelloWorld);
+      </script>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        :root {
+          --primary-color:blue;
+          --accent-color: #ff6600;
+          --main-font: 'Poppins', sans-serif;
+          --card-radius:1rem;
+        }
+        body{
+          font-family: var(--main-font, Arial, sans-serif);
+          background-color: var(--bg-color, red);
+          margin:0;
+          padding:0;
+          font-size: 1.25rem;
+          line-height: 1.6;
+        }
+        
+        header {
+          background: var(--primary-color, grey);
+          color: white;
+          padding: 2em 0;
+          text-align: center;
+          transition: background-color 0.25s ease;
+        }
+        header:hover {
+          background-color: var(--acent-color, red);
+        }
+        nav ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 1em auto;
+          display: flex;
+          justify-content: center;
+          gap: 1.5em;
+        }
+        nav a {
+          color: white;
+          text-decoration: none;
+          font-weight:bold;
+          font-size: 1.5rem;
+          transition: transform 0.2s ease, color 0.2s ease;
+        }
+        main {
+          padding: 2.2em 7%;
+          min-height: 70dvh;
+        }
+          h1 {
+            text-align: center;
+            font-size: 3rem;
+          }
+          h2 {
+            text-align: center;
+            font-size: 1.5rem;
+          }
+          article {
+            font-size: 1.2em;
+            max-width: 67%;
+            margin: 0 auto;
+            padding: 2em;
+            border-radius: var(--card-radius, 1.2rem);
+            background-color: white;
+            animation: fadeIn 1.5s ease-in;
+          }
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(2.5rem);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          article h3 {
+            color: var(--primary-color, blue);
+            margin-top: 1.2em;
+          }
+          article ol {
+            margin-left: 2em;
+          }
+          article p,
+          article li {
+            color: #333;
+          }
+          @media (max-width: 800px){
+            nav u1 {
+              flex-direction: column;
+            }
+            article {
+              max-width: 85%;
+              font-size: 1rem;
+            }
+            h1 {
+              font-size: 2.2rem;
+            }
+          }
+          section:has(iframe) {
+            border: 5px solid var(--accent-color, yellow);
+            padding: 1em;
+          }
+          fun-image{
+            display: block;
+            width: 500px;
+            height: 500px;
+            margin: 50px auto;
+            background-image: url("burak.JPG");
+            background-size: cover;
+            border-radius: 15px;
+            border: 5px solid #000;
+          }
+          img{
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--card-radius, 1.2rem);
+          }
+          @media (max-width: 800px)  {
+            picture img {
+              width: 92%;
+              height: auto;
+              border-width: 7px;
+            }
+    
+          }
+          footer {
+            text-align: center;
+            padding: 2em 0;
+            background-color: var(--primary-color,blue);
+            color:white;
+            font-size: 1.2em;
+          }
+        </style>
+</head>
+
+<body>
+    <header>
+
+        <h1><span style="color:white;">Burak Dikbas Portfolio</span></h1>
+        <nav>
+            <ul>
+                <li>
+                    <a href ="index.html">Home</a>
+                </li>
+                <li>
+                    <a href ="about.html">About</a>
+                    
+                </li>
+                <li>
+                    <a href ="projects.html">Projects</a>
+                </li>
+                <li>
+                    <a href="experimentals.html">Experimentals</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+<main>
+    <section>
+        <h2><span style="color:blue;">Contact Me</span></h2>
+        <a href="https://github.com/bdikbas">
+            <img src="github.png" alt="Burak Dikbas" width="200">
+        </a>
+        <br>
+        <a href="https://www.linkedin.com/in/burak-dikbas-074707278/">
+            <img src="linkedin.png" alt="Burak Dikbas" width="200">
+        </a>
+        
+        <form>
+            <fieldset>
+                <legend>Your Information</legend>
+                <label for="first-name">First Name:
+                    <input type="text" id="first-name" placeholder="Enter Your First Name" required>
+                    <br>
+                </label>
+
+                <label for="last-name">Last Name:
+                    <input type="text" id="last-name" placeholder="Enter Your Last Name" required>
+                    <br>
+                </label>
+
+                <label for="email">Email:
+                    <input type="email" id="email" placeholder="Enter Your Email" required>
+                    <br>        
+                </label>
+
+                <textarea id="message" name="message" rows="8" cols="40" placeholder="Type your message here"></textarea><br>
+
+                <button type="submit">Submit</button>
+            </fieldset>
+            
+        </form>
+    </section>
+</main>
+<footer>
+    <p>💯This page was made with &hearts; by Burak 💯</p>
+    <p>HTML Skill:</p>
+    <progress value="50" max="100"></progress>
+</footer>
+<script>
+        if (document.startViewTransition) {
+            document.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const url = link.href;
+            document.startViewTransition(() => {
+                window.location.href = url;
+            });
+            });
+            });
+        }
+    </script>
+
+</body>
+</html>
