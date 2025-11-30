@@ -7,25 +7,28 @@
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
             :root {
-              --primary-color:blue;
+              --primary-color: blue;
               --accent-color: #ff6600;
               --main-font: 'Poppins', sans-serif;
-              --card-radius:1rem;
+              --card-radius: 1rem;
             }
-            body{
+
+            body {
               font-family: var(--main-font, Arial, sans-serif);
               background-color: var(--bg-color, red);
-              margin:0;
-              padding:0;
+              margin: 0;
+              padding: 0;
               font-size: 1.25rem;
               line-height: 1.6;
             }
+
             header {
               background: var(--primary-color);
               color: white;
               padding: 2em 0;
               text-align: center;
             }
+
             nav ul {
               list-style-type: none;
               padding: 0;
@@ -34,10 +37,11 @@
               justify-content: center;
               gap: 1.5em;
             }
+
             nav a {
               color: white;
               text-decoration: none;
-              font-weight:bold;
+              font-weight: bold;
               font-size: 1.5rem;
             }
 
@@ -46,19 +50,92 @@
               min-height: 70dvh;
             }
 
+            h2 {
+              text-align: center;
+              font-size: 1.5rem;
+            }
+
             #experimental-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-                gap: 1.5rem;
-                margin-top: 2rem;
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+              gap: 1.5rem;
+              margin-top: 2rem;
+            }
+
+            /* MEDIA CARD STYLES (no shadow DOM) */
+            media-card {
+              background: #fff;
+              border-radius: var(--card-radius);
+              border: 2px solid #ddd;
+              padding: 1.2rem;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 0.75rem;
+              text-align: center;
+            }
+
+            media-card h2 {
+              margin: 0;
+              color: var(--primary-color);
+              font-size: 1.1rem;
+            }
+
+            media-card .card-desc {
+              font-size: 0.95rem;
+              margin: 0;
+            }
+
+            media-card a {
+              color: var(--accent-color);
+              font-weight: bold;
+              text-decoration: none;
+              font-size: 0.9rem;
+            }
+
+            media-card a:hover {
+              text-decoration: underline;
+            }
+
+            /* Make ALL media inside cards small and neat */
+            media-card picture,
+            media-card img,
+            media-card video,
+            media-card canvas,
+            media-card audio,
+            media-card figure,
+            media-card math {
+              max-width: 150px;
+              width: 150px;
+            }
+
+            media-card picture,
+            media-card figure {
+              margin: 0;
+            }
+
+            media-card img,
+            media-card video,
+            media-card canvas {
+              height: auto;
+              display: block;
+            }
+
+            media-card audio {
+              width: 150px;
+            }
+
+            media-card math {
+              font-size: 1.3rem;
+              width: auto;
             }
 
             footer {
-                text-align: center;
-                padding: 2em 0;
-                background-color: var(--primary-color);
-                color:white;
-                font-size: 1.2em;
+              text-align: center;
+              padding: 2em 0;
+              background-color: var(--primary-color);
+              color: white;
+              font-size: 1.2em;
             }
         </style>
     </head>
@@ -77,55 +154,50 @@
 </header>
 
 <main>
-<section>
+  <section>
     <h2><span style="color:blue;">Experimentals Page with Media Examples</span></h2>
 
     <section id="experimental-grid">
 
-    <media-card title="Burak & His Cat" desc="Picture example" url="#">
-    <picture style="border:10px solid #000; border-radius:15px; display:block;">
-      <source srcset="burak.webp" type="image/webp">
-      <source srcset="burak.jpg" type="image/jpg">
-    <img src="burak.jpg" alt="Burak with his cat">
-</picture>
+      <media-card title="Burak & His Cat" desc="Picture example" url="#">
+        <picture style="border:10px solid #000; border-radius:15px; display:block;">
+          <source srcset="burak.webp" type="image/webp">
+          <source srcset="burak.jpg" type="image/jpg">
+          <img src="burak.jpg" alt="Burak with his cat">
+        </picture>
+      </media-card>
 
-    </media-card>
-
-
-    <media-card title="Daniel Caesar" desc="Audio example" url="#">
-    <figure>
-        <audio controls style="border:10px solid #000;">
+      <media-card title="Daniel Caesar" desc="Audio example" url="#">
+        <figure>
+          <audio controls style="border:10px solid #000;">
             <source src="DC-Horsepower.flac" type="audio/flac">
-        </audio>
-        <figcaption>Courtesy of <cite>Daniel Caesar</cite></figcaption>
-    </figure>
-    </media-card>
+          </audio>
+          <figcaption>Courtesy of <cite>Daniel Caesar</cite></figcaption>
+        </figure>
+      </media-card>
 
-
-    <media-card title="Electric Relaxtion" desc="Video example" url="#">
-    <figure>
-        <video controls style="border:10px solid #000;">
+      <media-card title="Electric Relaxation" desc="Video example" url="#">
+        <figure>
+          <video controls style="border:10px solid #000;">
             <source src="tribe.mp4" type="video/mp4">
-        </video>
-        <figcaption>Courtesy of <cite>A Tribe Called Quest</cite></figcaption>
-    </figure>
-    </media-card>
+          </video>
+          <figcaption>Courtesy of <cite>A Tribe Called Quest</cite></figcaption>
+        </figure>
+      </media-card>
 
+      <media-card title="Canvas Example" desc="Canvas example" url="#">
+        <canvas id="my-canvas" style="border:10px solid #000;"></canvas>
+      </media-card>
 
-    <media-card title="Canvas Example" desc="Canvas example" url="#">
-      <canvas id="my-canvas" style="border:10px solid #000;"></canvas>
-    </media-card>
-
-
-    <media-card title="MathML Example" desc="Einstein's famous equation rendered with MathML." url="#">
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <media-card title="MathML Example" desc="Einstein's famous equation rendered with MathML." url="#">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
           <mi>E</mi><mo>=</mo><mi>m</mi>
           <msup><mi>c</mi><mn>2</mn></msup>
-          </math>
+        </math>
       </media-card>
 
     </section>
-</section>
+  </section>
 </main>
 
 <footer>
@@ -134,105 +206,39 @@
     <progress value="50" max="100"></progress>
 </footer>
 
-
+<!-- Custom element WITHOUT shadow DOM -->
 <script>
 class MediaCard extends HTMLElement {
-    constructor() {
-        super();
-        const shadow = this.attachShadow({ mode: "open" });
+  connectedCallback() {
+    if (this._initialized) return;
+    this._initialized = true;
 
-        shadow.innerHTML = `
-        <style>
-            :host {
-                --card-bg: white;
-                --card-radius: 1rem;
-                --card-padding: 1.2rem;
-                --card-border: 2px solid #ddd;
-                display: block;
-            }
+    const title = this.getAttribute("title") || "";
+    const desc = this.getAttribute("desc") || "";
+    const url = this.getAttribute("url") || "#";
 
-            section.card {
-                background: var(--card-bg);
-                border-radius: var(--card-radius);
-                padding: var(--card-padding);
-                border: var(--card-border);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            h2 {
-                margin: 0;
-                color: var(--primary-color);
-            }
-
-            /* Small + consistent sizing for media */
-            ::slotted(img),
-            ::slotted(video),
-            ::slotted(canvas) {
-                max-width: 150px !important;
-                width: 150px !important;
-                height: auto !important;
-                display: block;
-            }
-
-            ::slotted(audio) {
-                width: 150px !important;
-            }
-
-            ::slotted(figure) {
-                margin: 0;
-                padding: 0;
-                max-width: 150px;
-                width: 150px;
-            }
-
-            /* Math fits and centers nicely */
-            ::slotted(math) {
-                font-size: 1.5rem;
-                margin: 1rem auto;
-            }
-            ::slotted(picture),
-            ::slotted(picture *) {
-                width: 150px !important;
-                max-width: 150px !important;
-                height: auto !important;
-                display: block !important;
-            }
-
-
-            a {
-                color: var(--accent-color);
-                font-weight: bold;
-                text-decoration: none;
-            }
-        </style>
-
-        <section class="card">
-            <h2></h2>
-            <slot></slot>
-            <p class="desc"></p>
-            <a class="link" href="#" target="_self">More Info →</a>
-        </section>`;
+    if (title) {
+      const h2 = document.createElement("h2");
+      h2.textContent = title;
+      this.insertBefore(h2, this.firstChild);
     }
 
-    connectedCallback() {
-        this.shadowRoot.querySelector("h2").textContent =
-            this.getAttribute("title") || "Untitled";
-
-        this.shadowRoot.querySelector(".desc").textContent =
-            this.getAttribute("desc") || "";
-
-        this.shadowRoot.querySelector(".link").href =
-            this.getAttribute("url") || "#";
+    if (desc) {
+      const p = document.createElement("p");
+      p.className = "card-desc";
+      p.textContent = desc;
+      this.appendChild(p);
     }
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.textContent = "More info →";
+    this.appendChild(link);
+  }
 }
+
 customElements.define("media-card", MediaCard);
 </script>
-
-
 
 <script>
 if (document.startViewTransition) {
