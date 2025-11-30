@@ -194,6 +194,14 @@ class MediaCard extends HTMLElement {
                 font-size: 1.5rem;
                 margin: 1rem auto;
             }
+            ::slotted(picture),
+            ::slotted(picture *) {
+                width: 150px !important;
+                max-width: 150px !important;
+                height: auto !important;
+                display: block !important;
+            }
+
 
             a {
                 color: var(--accent-color);
