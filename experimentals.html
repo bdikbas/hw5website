@@ -83,11 +83,12 @@
     <section id="experimental-grid">
 
     <media-card title="Burak & His Cat" desc="Picture example" url="#">
-    <picture>
-        <source srcset="burak.webp" type="image/webp">
-        <source srcset="burak.jpg" type="image/jpg">
-        <img src="burak.jpg" alt="Burak with his cat" style="border:10px solid #000; border-radius:15px;">
-    </picture>
+    <picture style="border:10px solid #000; border-radius:15px; display:block;">
+      <source srcset="burak.webp" type="image/webp">
+      <source srcset="burak.jpg" type="image/jpg">
+    <img src="burak.jpg" alt="Burak with his cat">
+</picture>
+
     </media-card>
 
 
@@ -157,7 +158,9 @@ class MediaCard extends HTMLElement {
                 border: var(--card-border);
                 display: flex;
                 flex-direction: column;
+                align-items: center;
                 gap: 1rem;
+                text-align: center;
             }
 
             h2 {
@@ -165,17 +168,31 @@ class MediaCard extends HTMLElement {
                 color: var(--primary-color);
             }
 
-            ::slotted(*) {
-                max-width: 20%;
-                width: 20%;
-                height: auto;
+            /* Small + consistent sizing for media */
+            ::slotted(img),
+            ::slotted(video),
+            ::slotted(canvas) {
+                max-width: 150px !important;
+                width: 150px !important;
+                height: auto !important;
                 display: block;
-                margin: 0 auto;
+            }
+
+            ::slotted(audio) {
+                width: 150px !important;
             }
 
             ::slotted(figure) {
-                width: 20%;
                 margin: 0;
+                padding: 0;
+                max-width: 150px;
+                width: 150px;
+            }
+
+            /* Math fits and centers nicely */
+            ::slotted(math) {
+                font-size: 1.5rem;
+                margin: 1rem auto;
             }
 
             a {
@@ -190,8 +207,7 @@ class MediaCard extends HTMLElement {
             <slot></slot>
             <p class="desc"></p>
             <a class="link" href="#" target="_self">More Info →</a>
-        </section>
-        `;
+        </section>`;
     }
 
     connectedCallback() {
@@ -207,6 +223,7 @@ class MediaCard extends HTMLElement {
 }
 customElements.define("media-card", MediaCard);
 </script>
+
 
 
 <script>
