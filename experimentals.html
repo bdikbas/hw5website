@@ -141,77 +141,73 @@ class MediaCard extends HTMLElement {
         const shadow = this.attachShadow({ mode: "open" });
 
         shadow.innerHTML = `
-    <style>
-    :host {
-        --card-bg: white;
-        --card-radius: 1rem;
-        --card-padding: 1.2rem;
-        --card-border: 2px solid #ddd;
-        display: block;
-    }
+        <style>
+            :host {
+                --card-bg: white;
+                --card-radius: 1rem;
+                --card-padding: 1.2rem;
+                --card-border: 2px solid #ddd;
+                display: block;
+            }
 
-    section.card {
-        background: var(--card-bg);
-        border-radius: var(--card-radius);
-        padding: var(--card-padding);
-        border: var(--card-border);
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
+            section.card {
+                background: var(--card-bg);
+                border-radius: var(--card-radius);
+                padding: var(--card-padding);
+                border: var(--card-border);
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
 
-    h2 {
-        margin: 0;
-        color: var(--primary-color);
-    }
+            h2 {
+                margin: 0;
+                color: var(--primary-color);
+            }
 
-    /* FORCE ALL MEDIA TO FIT THE CARD */
-    ::slotted(img),
-    ::slotted(video),
-    ::slotted(audio),
-    ::slotted(canvas),
-    ::slotted(picture),
-    ::slotted(figure) {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important;
-        display: block;
-        margin: 0 auto;
-    }
+            ::slotted(*) {
+                max-width: 100%;
+                width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
 
-    /* Ensure video scales correctly */
-    ::slotted(video) {
-        object-fit: contain !important;
-    }
+            ::slotted(figure) {
+                width: 100%;
+                margin: 0;
+            }
 
-    /* Fix canvas */
-    ::slotted(canvas) {
-        object-fit: contain !important;
-    }
+            a {
+                color: var(--accent-color);
+                font-weight: bold;
+                text-decoration: none;
+            }
+        </style>
 
-    /* Make audio bar span full card */
-    ::slotted(audio) {
-        width: 100% !important;
-    }
-
-    a {
-        color: var(--accent-color);
-        font-weight: bold;
-        text-decoration: none;
-    }
-    </style>`;
+        <section class="card">
+            <h2></h2>
+            <slot></slot>
+            <p class="desc"></p>
+            <a class="link" href="#" target="_self">More Info →</a>
+        </section>
+        `;
     }
 
     connectedCallback() {
         this.shadowRoot.querySelector("h2").textContent =
-            this.getAttribute("title");
+            this.getAttribute("title") || "Untitled";
 
         this.shadowRoot.querySelector(".desc").textContent =
-            this.getAttribute("desc");
+            this.getAttribute("desc") || "";
+
+        this.shadowRoot.querySelector(".link").href =
+            this.getAttribute("url") || "#";
     }
 }
 customElements.define("media-card", MediaCard);
 </script>
+
 
 <script>
 if (document.startViewTransition) {
