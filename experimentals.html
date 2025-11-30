@@ -174,66 +174,73 @@
             </nav>
         </header>
     
-        <main>
-            <section>
-                <h2><span style="color:blue;">Experimentals Page with Media Examples</span></h2>
-                <section id="experimental-grid">
+       <main>
+    <section>
+        <h2><span style="color:blue;">Experimentals Page with Media Examples</span></h2>
+
+        <section id="experimental-grid">
 
             
             <media-card
                 title="Burak & His Cat"
-                img="burak.jpg"
-                alt="Burak with his cat"
-                desc="A responsive image demonstration using the picture tag and media-card component."
-                url=#>
+                desc="Responsive picture element displayed inside a custom element."
+                url="#">
+                
+                <picture>
+                    <source srcset="burak.webp" type="image/webp">
+                    <source srcset="burak.jpg" type="image/jpg">
+                    <img src="burak.jpg" alt="Burak with his cat" width="500" height="500"
+                    style="border:10px solid #000; border-radius: 15px; object-fit: cover; object-position: center;">
+                </picture>
+
             </media-card>
 
-           
+            
             <media-card
                 title="Audio Sample — Daniel Caesar"
-                img="burak.jpg"
-                alt="Audio placeholder visual"
-                desc="An embedded FLAC audio sample displayed inside a card layout using custom elements."
-                url=#>
+                desc="Embedded FLAC audio sample with semantic figure + caption."
+                url="#">
+                
+                <figure>
+                    <audio style="border:10px solid #000" controls>
+                        <source src="DC-Horsepower.flac" type="audio/flac">
+                    </audio>
+                    <figcaption>Courtesy of <cite>Daniel Caesar</cite></figcaption>
+                </figure>
+
             </media-card>
 
             
             <media-card
                 title="Video Sample — A Tribe Called Quest"
-                img="burak.jpg"
-                alt="Video placeholder visual"
-                desc="Responsive video integration using HTML5 media and semantic figure elements."
-                url=#>
-            </media-card>
-
-                <template id="template-for-resume">
-                    <p>Can be later cloned</p>
-                </template>
-                <picture>
-                    <source srcset="burak.webp" type="image/webp">
-                    <source srcset="burak.jpg" type="image/jpg">
-                    <img src="burak.jpg" alt="Burak with his cat" width="500" height="500" 
-                    style="border:10px solid #000; border-radius: 15px; object-fit: cover; object-position: center; display: block; margin: 2em auto;">
-                  </picture>
-                <br>
+                desc="Video example embedded directly inside a custom media card."
+                url="#">
+                
                 <figure>
-                    <audio style="border:10px solid #000" controls>
-                    <source src="DC-Horsepower.flac" type="audio/flac">
-                    </audio>
-                    <figcaption>Courtesy of <cite>Daniel Caesar</cite></figcaption>
-                </figure>             
-                <br>
-                <figure>
-                    <video width="500" height="500" style="border:10px solid #000" controls >
-                    <source src="tribe.mp4" type="video/mp4">
+                    <video width="500" height="500" style="border:10px solid #000" controls>
+                        <source src="tribe.mp4" type="video/mp4">
                     </video>
                     <figcaption>Courtesy of <cite>A Tribe Called Quest</cite></figcaption>
                 </figure>
+
+            </media-card>
+
+           
+            <media-card
+                title="Canvas Example"
+                desc="Canvas rendering experiment shown inside a media card."
+                url="#">
                 
-                <br>
-                <canvas id="my-canvas" width="500" height="500" style="border: 10px solid #000;">
-                </canvas>
-                <br>
+                <canvas id="my-canvas" width="500" height="500" style="border: 10px solid #000;"></canvas>
+
+            </media-card>
+
+           
+            <media-card
+                title="MathML Example"
+                desc="Mathematical notation rendered with MathML inside a custom element."
+                url="#">
+                
                 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
                     <mi>E</mi>
                     <mo>=</mo>
@@ -243,8 +250,12 @@
                         <mn>2</mn>
                     </msup>
                 </math>
-            </section>
-        </main>
+
+            </media-card>
+
+        </section>
+    </section>
+</main>
         <footer>
             <p>💯This page was made with &hearts; by Burak 💯</p>
             <p>HTML Skill:</p>
@@ -276,9 +287,8 @@ class MediaCard extends HTMLElement {
                     gap: 0.8rem;
                 }
 
-                picture img, video, audio {
-                    width: 100%;
-                    border-radius: var(--card-radius);
+                h2 {
+                    color: var(--primary-color, blue);
                 }
 
                 a {
@@ -286,30 +296,28 @@ class MediaCard extends HTMLElement {
                     font-weight: bold;
                     text-decoration: none;
                 }
-
                 a:hover {
                     text-decoration: underline;
+                }
+
+                ::slotted(*) {
+                    width: 100%;
+                    border-radius: var(--card-radius);
                 }
             </style>
 
             <section class="card">
                 <h2></h2>
-                <picture><img alt=""></picture>
+                <slot></slot>
                 <p class="desc"></p>
-                <a class="link" target="_blank">More Info →</a>
+                <a class="link" target="_self">More Info →</a>
             </section>
         `;
     }
 
     connectedCallback() {
         this.shadowRoot.querySelector("h2").textContent =
-            this.getAttribute("title") || "Untitled Media";
-
-        this.shadowRoot.querySelector("img").src =
-            this.getAttribute("img") || "";
-
-        this.shadowRoot.querySelector("img").alt =
-            this.getAttribute("alt") || "Media Image";
+            this.getAttribute("title") || "Untitled";
 
         this.shadowRoot.querySelector(".desc").textContent =
             this.getAttribute("desc") || "";
@@ -318,9 +326,9 @@ class MediaCard extends HTMLElement {
             this.getAttribute("url") || "#";
     }
 }
-
 customElements.define("media-card", MediaCard);
 </script>
+
         <script>
         if (document.startViewTransition) {
             document.querySelectorAll("a").forEach(link => {
