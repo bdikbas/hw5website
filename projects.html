@@ -143,6 +143,12 @@
             color:white;
             font-size: 1.2em;
           }
+          #project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+}
         </style>
 </head>
 
@@ -168,15 +174,97 @@
         </nav>
     </header>
     <main>
-        <section>
-            <h2><span style="color:blue;">Projects</span></h2>
+    <section>
+        <h2><span style="color:blue;">Projects</span></h2>
+        <section id="project-grid">
+            <project-card
+                title="Molten Salt Corrosion Study"
+                img="burak.jpg"
+                alt="Microscopy of molten salt corrosion specimen"
+                desc="Investigated chromium depletion and microstructural evolution in 316 SS under molten salt exposure."
+                url="https://example.com/project1">
+            </project-card>
+
+            <project-card
+                title="Fusion Materials Analysis"
+                img="burak.jpg"
+                alt="Material testing setup"
+                desc="Characterization of radiation-induced defects in tungsten and steel alloys."
+                url="https://example.com/project2">
+            </project-card>
         </section>
-    </main>
-    <footer>
-        <p>💯This page was made with &hearts; by Burak 💯</p>
-        <p>HTML Skill:</p>
-        <progress value="50" max="100"></progress>
-    </footer>
+    </section>
+</main>
+
+<footer>
+  <p>💯This page was made with &hearts; by Burak 💯</p>
+  <p>HTML Skill:</p>
+  <progress value="50" max="100"></progress>
+</footer>
+
+<script>
+class ProjectCard extends HTMLElement {
+    constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: "open" });
+
+        shadow.innerHTML = `
+            <style>
+                :host {
+                    --card-bg: white;
+                    --card-radius: var(--card-radius, 1rem);
+                    --card-padding: 1.2rem;
+                    --card-border: 2px solid #ddd;
+                    --title-color: var(--primary-color, blue);
+                    display: block;
+                }
+
+                .card {
+                    background: var(--card-bg);
+                    border-radius: var(--card-radius);
+                    padding: var(--card-padding);
+                    border: var(--card-border);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.8rem;
+                }
+
+                picture img {
+                    width: 100%;
+                    border-radius: var(--card-radius);
+                }
+
+                a {
+                    color: var(--accent-color, #ff6600);
+                    font-weight: bold;
+                    text-decoration: none;
+                }
+                a:hover {
+                    text-decoration: underline;
+                }
+            </style>
+
+            <section class="card">
+                <h2></h2>
+                <picture>
+                    <img alt="">
+                </picture>
+                <p class="desc"></p>
+                <a class="link" target="_blank">Read More →</a>
+            </section>
+        `;
+    }
+
+    connectedCallback() {
+        this.shadowRoot.querySelector("h2").textContent = this.getAttribute("title") || "Untitled";
+        this.shadowRoot.querySelector("img").src = this.getAttribute("img") || "";
+        this.shadowRoot.querySelector("img").alt = this.getAttribute("alt") || "Project Image";
+        this.shadowRoot.querySelector(".desc").textContent = this.getAttribute("desc") || "";
+        this.shadowRoot.querySelector(".link").href = this.getAttribute("url") || "#";
+    }
+}
+customElements.define("project-card", ProjectCard);
+</script>
 <script>
         if (document.startViewTransition) {
             document.querySelectorAll("a").forEach(link => {
@@ -190,6 +278,6 @@
             });
         }
     </script>
-    
+ 
 </body>
 </html>
