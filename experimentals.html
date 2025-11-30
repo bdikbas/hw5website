@@ -268,52 +268,92 @@ class MediaCard extends HTMLElement {
         const shadow = this.attachShadow({ mode: "open" });
 
         shadow.innerHTML = `
-            <style>
-                :host {
-                    --card-bg: white;
-                    --card-radius: var(--card-radius, 1rem);
-                    --card-padding: 1.2rem;
-                    --card-border: 2px solid #ddd;
-                    display: block;
-                }
+    <style>
+      :host {
+        --card-bg: white;
+        --card-radius: var(--card-radius, 1rem);
+        --card-padding: 1.2rem;
+        --card-border: 2px solid #ddd;
+        display: block;
+      }
 
-                section.card {
-                    background: var(--card-bg);
-                    border-radius: var(--card-radius);
-                    padding: var(--card-padding);
-                    border: var(--card-border);
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.8rem;
-                }
+      section.card {
+        background: var(--card-bg);
+        border-radius: var(--card-radius);
+        padding: var(--card-padding);
+        border: var(--card-border);
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
 
-                h2 {
-                    color: var(--primary-color, blue);
-                }
+      h2 {
+        color: var(--primary-color, blue);
+        margin-bottom: 0.5rem;
+      }
 
-                a {
-                    color: var(--accent-color, #ff6600);
-                    font-weight: bold;
-                    text-decoration: none;
-                }
-                a:hover {
-                    text-decoration: underline;
-                }
+    
+      ::slotted(*) {
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
+      }
 
-                ::slotted(*) {
-                    width: 100%;
-                    border-radius: var(--card-radius);
-                }
-            </style>
+    
+      ::slotted(figure) {
+        width: 100%;
+        margin: 0;
+      }
 
-            <section class="card">
-                <h2></h2>
-                <slot></slot>
-                <p class="desc"></p>
-                <a class="link" target="_self">More Info →</a>
-            </section>
-        `;
+      ::slotted(figure > *) {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+      }
+
+    
+      ::slotted(img) {
+        width: 100%;
+        height: auto;
+        border-radius: var(--card-radius);
+      }
+
+    ::slotted(video) {
+        width: 100%;
+        height: auto;
+        border-radius: var(--card-radius);
     }
+
+    
+    ::slotted(audio) {
+        width: 100%;
+    }
+
+   
+    ::slotted(canvas) {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    
+    ::slotted(math) {
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 1rem auto;
+    }
+
+    a {
+        color: var(--accent-color, #ff6600);
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+      }
+  </style>
+  `;
+}
 
     connectedCallback() {
         this.shadowRoot.querySelector("h2").textContent =
