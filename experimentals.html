@@ -143,7 +143,13 @@
                 color:white;
                 font-size: 1.2em;
               }
-            </style>
+              #experimental-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 1.5rem;
+                margin-top: 2rem;
+              }
+          </style>
     </head>
     
     <body>
@@ -171,6 +177,35 @@
         <main>
             <section>
                 <h2><span style="color:blue;">Experimentals Page with Media Examples</span></h2>
+                <section id="experimental-grid">
+
+            
+            <media-card
+                title="Burak & His Cat"
+                img="burak.jpg"
+                alt="Burak with his cat"
+                desc="A responsive image demonstration using the picture tag and media-card component."
+                url=#>
+            </media-card>
+
+           
+            <media-card
+                title="Audio Sample — Daniel Caesar"
+                img="burak.jpg"
+                alt="Audio placeholder visual"
+                desc="An embedded FLAC audio sample displayed inside a card layout using custom elements."
+                url=#>
+            </media-card>
+
+            
+            <media-card
+                title="Video Sample — A Tribe Called Quest"
+                img="burak.jpg"
+                alt="Video placeholder visual"
+                desc="Responsive video integration using HTML5 media and semantic figure elements."
+                url=#>
+            </media-card>
+
                 <template id="template-for-resume">
                     <p>Can be later cloned</p>
                 </template>
@@ -215,7 +250,77 @@
             <p>HTML Skill:</p>
             <progress value="50" max="100"></progress>
         </footer>
+<script>
+class MediaCard extends HTMLElement {
+    constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: "open" });
 
+        shadow.innerHTML = `
+            <style>
+                :host {
+                    --card-bg: white;
+                    --card-radius: var(--card-radius, 1rem);
+                    --card-padding: 1.2rem;
+                    --card-border: 2px solid #ddd;
+                    display: block;
+                }
+
+                section.card {
+                    background: var(--card-bg);
+                    border-radius: var(--card-radius);
+                    padding: var(--card-padding);
+                    border: var(--card-border);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.8rem;
+                }
+
+                picture img, video, audio {
+                    width: 100%;
+                    border-radius: var(--card-radius);
+                }
+
+                a {
+                    color: var(--accent-color, #ff6600);
+                    font-weight: bold;
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    text-decoration: underline;
+                }
+            </style>
+
+            <section class="card">
+                <h2></h2>
+                <picture><img alt=""></picture>
+                <p class="desc"></p>
+                <a class="link" target="_blank">More Info →</a>
+            </section>
+        `;
+    }
+
+    connectedCallback() {
+        this.shadowRoot.querySelector("h2").textContent =
+            this.getAttribute("title") || "Untitled Media";
+
+        this.shadowRoot.querySelector("img").src =
+            this.getAttribute("img") || "";
+
+        this.shadowRoot.querySelector("img").alt =
+            this.getAttribute("alt") || "Media Image";
+
+        this.shadowRoot.querySelector(".desc").textContent =
+            this.getAttribute("desc") || "";
+
+        this.shadowRoot.querySelector(".link").href =
+            this.getAttribute("url") || "#";
+    }
+}
+
+customElements.define("media-card", MediaCard);
+</script>
         <script>
         if (document.startViewTransition) {
             document.querySelectorAll("a").forEach(link => {
