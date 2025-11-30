@@ -82,42 +82,46 @@
 
     <section id="experimental-grid">
 
-        <media-card title="Burak & His Cat" desc="Picture element example." url="#">
-            <picture>
-                <source srcset="burak.webp" type="image/webp">
-                <source srcset="burak.jpg" type="image/jpg">
-                <img src="burak.jpg" alt="Burak with his cat">
-            </picture>
-        </media-card>
+    <media-card title="Burak & His Cat" desc="Picture example" url="#">
+    <picture>
+        <source srcset="burak.webp" type="image/webp">
+        <source srcset="burak.jpg" type="image/jpg">
+        <img src="burak.jpg" alt="Burak with his cat" style="border:10px solid #000; border-radius:15px;">
+    </picture>
+    </media-card>
 
-        <media-card title="Audio Sample — Daniel Caesar" desc="FLAC audio embedded using figure/caption." url="#">
-            <figure>
-                <audio controls>
-                    <source src="DC-Horsepower.flac" type="audio/flac">
-                </audio>
-                <figcaption>Courtesy of <cite>Daniel Caesar</cite></figcaption>
-            </figure>
-        </media-card>
 
-        <media-card title="Video Sample — A Tribe Called Quest" desc="Video demonstration inside media card." url="#">
-            <figure>
-                <video controls>
-                    <source src="tribe.mp4" type="video/mp4">
-                </video>
-                <figcaption>Courtesy of <cite>A Tribe Called Quest</cite></figcaption>
-            </figure>
-        </media-card>
+    <media-card title="Daniel Caesar" desc="Audio example" url="#">
+    <figure>
+        <audio controls style="border:10px solid #000;">
+            <source src="DC-Horsepower.flac" type="audio/flac">
+        </audio>
+        <figcaption>Courtesy of <cite>Daniel Caesar</cite></figcaption>
+    </figure>
+    </media-card>
 
-        <media-card title="Canvas Example" desc="Canvas element drawn inside the card." url="#">
-            <canvas id="my-canvas" width="500" height="500"></canvas>
-        </media-card>
 
-        <media-card title="MathML Example" desc="Einstein's famous equation rendered with MathML." url="#">
-            <math xmlns="http://www.w3.org/1998/Math/MathML">
-                <mi>E</mi><mo>=</mo><mi>m</mi>
-                <msup><mi>c</mi><mn>2</mn></msup>
-            </math>
-        </media-card>
+    <media-card title="Electric Relaxtion" desc="Video example" url="#">
+    <figure>
+        <video controls style="border:10px solid #000;">
+            <source src="tribe.mp4" type="video/mp4">
+        </video>
+        <figcaption>Courtesy of <cite>A Tribe Called Quest</cite></figcaption>
+    </figure>
+    </media-card>
+
+
+    <media-card title="Canvas Example" desc="Canvas example" url="#">
+      <canvas id="my-canvas" style="border:10px solid #000;"></canvas>
+    </media-card>
+
+
+    <media-card title="MathML Example" desc="Einstein's famous equation rendered with MathML." url="#">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <mi>E</mi><mo>=</mo><mi>m</mi>
+          <msup><mi>c</mi><mn>2</mn></msup>
+          </math>
+      </media-card>
 
     </section>
 </section>
@@ -129,7 +133,7 @@
     <progress value="50" max="100"></progress>
 </footer>
 
-<!-- FIXED MEDIA-CARD COMPONENT -->
+
 <script>
 class MediaCard extends HTMLElement {
     constructor() {
@@ -137,61 +141,65 @@ class MediaCard extends HTMLElement {
         const shadow = this.attachShadow({ mode: "open" });
 
         shadow.innerHTML = `
-        <style>
-            :host {
-                --card-bg: white;
-                --card-radius: 1rem;
-                --card-padding: 1.2rem;
-                --card-border: 2px solid #ddd;
-                display: block;
-            }
+    <style>
+    :host {
+        --card-bg: white;
+        --card-radius: 1rem;
+        --card-padding: 1.2rem;
+        --card-border: 2px solid #ddd;
+        display: block;
+    }
 
-            section.card {
-                background: var(--card-bg);
-                border-radius: var(--card-radius);
-                padding: var(--card-padding);
-                border: var(--card-border);
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-            }
+    section.card {
+        background: var(--card-bg);
+        border-radius: var(--card-radius);
+        padding: var(--card-padding);
+        border: var(--card-border);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-            h2 {
-                margin: 0;
-                color: var(--primary-color);
-            }
+    h2 {
+        margin: 0;
+        color: var(--primary-color);
+    }
 
-            /* LEGAL slot selectors ONLY */
-            ::slotted(*) {
-                max-width: 100%;
-                display: block;
-                margin: 0 auto;
-            }
+    /* FORCE ALL MEDIA TO FIT THE CARD */
+    ::slotted(img),
+    ::slotted(video),
+    ::slotted(audio),
+    ::slotted(canvas),
+    ::slotted(picture),
+    ::slotted(figure) {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        display: block;
+        margin: 0 auto;
+    }
 
-            ::slotted(img), ::slotted(video), ::slotted(audio), ::slotted(canvas) {
-                width: 100%;
-                height: auto;
-            }
+    /* Ensure video scales correctly */
+    ::slotted(video) {
+        object-fit: contain !important;
+    }
 
-            ::slotted(figure) {
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
+    /* Fix canvas */
+    ::slotted(canvas) {
+        object-fit: contain !important;
+    }
 
-            a {
-                color: var(--accent-color);
-                font-weight: bold;
-                text-decoration: none;
-            }
-        </style>
+    /* Make audio bar span full card */
+    ::slotted(audio) {
+        width: 100% !important;
+    }
 
-        <section class="card">
-            <h2></h2>
-            <slot></slot>
-            <p class="desc"></p>
-            <a class="link" href="#">More Info →</a>
-        </section>`;
+    a {
+        color: var(--accent-color);
+        font-weight: bold;
+        text-decoration: none;
+    }
+    </style>`;
     }
 
     connectedCallback() {
