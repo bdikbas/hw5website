@@ -54,6 +54,23 @@
               text-align: center;
               font-size: 1.5rem;
             }
+            
+            #load-local,
+            #load-remote {
+              padding: 0.6rem 1.2rem;
+              font-size: 1.1rem;
+              border-radius: 0.5rem;
+              border: none;
+              cursor: pointer;
+              margin-right: 1rem;
+              background: var(--primary-color);
+              color: white;
+            }
+
+            #load-local:hover,
+            #load-remote:hover {
+              background: #003f9e;
+            }
 
             #experimental-grid {
               display: flex;
@@ -158,45 +175,9 @@
 <main>
   <section>
     <h2><span style="color:blue;">Experimentals Page with Media Examples</span></h2>
-
+    <button id="load-local">Load Local</button>
+    <button id="load-remote">Load Remote</button>
     <section id="experimental-grid">
-
-      <media-card title="Burak & His Cat" desc="Picture example" url="#">
-        <picture style="border:10px solid #000; border-radius:15px; display:block;">
-          <source srcset="burak.webp" type="image/webp">
-          <source srcset="burak.jpg" type="image/jpg">
-          <img src="burak.jpg" alt="Burak with his cat">
-        </picture>
-      </media-card>
-
-      <media-card title="Daniel Caesar" desc="Audio example" url="#">
-        <figure>
-          <audio controls style="border:10px solid #000;">
-            <source src="DC-Horsepower.flac" type="audio/flac">
-          </audio>
-          <figcaption>Courtesy of <cite>Daniel Caesar</cite></figcaption>
-        </figure>
-      </media-card>
-
-      <media-card title="Electric Relaxation" desc="Video example" url="#">
-        <figure>
-          <video controls style="border:10px solid #000;">
-            <source src="tribe.mp4" type="video/mp4">
-          </video>
-          <figcaption>Courtesy of <cite>A Tribe Called Quest</cite></figcaption>
-        </figure>
-      </media-card>
-
-      <media-card title="Canvas Example" desc="Canvas example" url="#">
-        <canvas id="my-canvas" style="border:10px solid #000;"></canvas>
-      </media-card>
-
-      <media-card title="MathML Example" desc="Einstein's famous equation rendered with MathML." url="#">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <mi>E</mi><mo>=</mo><mi>m</mi>
-          <msup><mi>c</mi><mn>2</mn></msup>
-        </math>
-      </media-card>
 
     </section>
   </section>
@@ -239,6 +220,106 @@ class MediaCard extends HTMLElement {
 }
 
 customElements.define("media-card", MediaCard);
+</script>
+<script>
+const localExperimentals = [
+  {
+    title: "Local – Burak & Cat",
+    desc: "Loaded from localStorage",
+    type: "image",
+    src: "burak.jpg"
+  },
+  {
+    title: "Local – Audio Track",
+    desc: "Audio loaded locally",
+    type: "audio",
+    src: "DC-Horsepower.flac"
+  },
+  {
+    title: "Local – Video Track",
+    desc: "Video loaded locally",
+    type: "video",
+    src: "tribe.mp4"
+  }
+];
+
+localStorage.setItem("experimentals", JSON.stringify(localExperimentals));
+</script>
+
+<!-- REMOTE DATASET (YOU WILL REPLACE URL WHEN READY) -->
+<script>
+const REMOTE_URL = "https://api.jsonbin.io/v3/b/REPLACE_ME/latest";
+</script>
+
+<script>
+function renderCards(data) {
+  const grid = document.getElementById("experimental-grid");
+  grid.innerHTML = "";
+
+  data.forEach(item => {
+    const card = document.createElement("media-card");
+    card.setAttribute("title", item.title);
+    card.setAttribute("desc", item.desc);
+    card.setAttribute("url", "#");
+
+    let media;
+
+    switch (item.type) {
+      case "image":
+        media = document.createElement("img");
+        media.src = item.src;
+        break;
+
+      case "audio":
+        media = document.createElement("audio");
+        media.src = item.src;
+        media.controls = true;
+        break;
+
+      case "video":
+        media = document.createElement("video");
+        media.src = item.src;
+        media.controls = true;
+        break;
+
+      case "canvas":
+        media = document.createElement("canvas");
+        media.width = 350;
+        media.height = 350;
+        const ctx = media.getContext("2d");
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0, 0, 350, 350);
+        break;
+
+      case "math":
+        media = document.createElement("div");
+        media.textContent = item.src;
+        break;
+    }
+
+    card.prepend(media);
+    grid.appendChild(card);
+  });
+}
+</script>
+
+<script>
+document.getElementById("load-local").addEventListener("click", () => {
+  const data = JSON.parse(localStorage.getItem("experimentals"));
+  renderCards(data);
+});
+
+document.getElementById("load-remote").addEventListener("click", async () => {
+  try {
+    const response = await fetch(REMOTE_URL);
+    const json = await response.json();
+
+    const data = json.record || json;  
+    renderCards(data);
+  } catch(err) {
+    console.error("Remote fetch failed:", err);
+  }
+});
 </script>
 
 <script>
