@@ -313,17 +313,21 @@ function renderCards(data) {
       case "math":
         media = document.createElement("math");
         media.setAttribute("xmlns", "http://www.w3.org/1998/Math/MathML");
-
+        media.setAttribute("display", "block");
         media.innerHTML = `
+        <mrow>
         <mi>E</mi>
         <mo>=</mo>
-        <mi>m</mi>
-        <msup>
-        <mi>c</mi>
-        <mn>2</mn>
-        </msup>
-        `;
-        break;
+        <mrow>
+          <mi>m</mi>
+          <msup>
+            <mi>c</mi>
+            <mn>2</mn>
+          </msup>
+        </mrow>
+      </mrow>
+      `;
+      break;
     }
 
     card.insertBefore(media, card.firstChild);
