@@ -117,37 +117,23 @@
             }
 
            
-            media-card picture,
             media-card img,
             media-card video,
-            media-card canvas,
             media-card audio,
+            media-card canvas,
+            media-card picture,
             media-card figure,
             media-card math {
-              max-width: 350px;
-              width: 350px;
+              max-width: 350px !important;
+              width: 350px !important;
+              height: auto !important;
+              display: block !important;
+              margin: 0 auto !important;
             }
-
-            media-card picture,
-            media-card figure {
-              margin: 0;
-            }
-
-            media-card img,
             media-card video,
+            media-card img,
             media-card canvas {
               height: auto;
-              display: block;
-              margin: 0 auto;
-            }
-
-            media-card audio {
-              width: 150px;
-            }
-
-            media-card math {
-              font-size: 1.3rem;
-              width: auto;
             }
 
             footer {
@@ -267,7 +253,7 @@ function renderCards(data) {
 
     switch (item.type) {
       case "image":
-        media = document.createElement("img");
+        media = document.createElement("image");
         media.src = item.src;
         media.alt = item.title;
         break;
