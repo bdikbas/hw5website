@@ -311,8 +311,18 @@ function renderCards(data) {
         break;
 
       case "math":
-        media = document.createElement("div");
-        media.textContent = item.src;
+        media = document.createElement("math");
+        media.setAttribute("xmlns", "http://www.w3.org/1998/Math/MathML");
+
+        media.innerHTML = `
+        <mi>E</mi>
+        <mo>=</mo>
+        <mi>m</mi>
+        <msup>
+        <mi>c</mi>
+        <mn>2</mn>
+        </msup>
+        `;
         break;
     }
 
