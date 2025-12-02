@@ -269,6 +269,7 @@ function renderCards(data) {
         media = document.createElement("img");
         media.src = item.src;
         media.alt = item.title;
+        console.log("RENDERING TYPE:", item.type);
         break;
 
       case "audio":
