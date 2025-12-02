@@ -292,7 +292,7 @@ function renderCards(data) {
 
     console.log("REMOTE ITEM:", item);
     console.log("TYPE EXACT:", JSON.stringify(item.type));
-
+    const cleanType = (item.type || "").trim().toLowerCase().normalize();
     switch (item.type) {
       case "image":
         media = document.createElement("img");
