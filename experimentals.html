@@ -259,10 +259,10 @@ const localExperimentals = [
     src: "tribe.mp4"
   },
   {
-  title: "Einstein Equation",
-  desc: "MathML loaded locally",
-  type: "math"
-  }
+  title: "Canvas Demo",
+  desc: "Blank white canvas",
+  type: "canvas"
+}
 ];
 
 localStorage.setItem("experimentals", JSON.stringify(localExperimentals));
@@ -309,9 +309,11 @@ function renderCards(data) {
         media = document.createElement("canvas");
         media.width = 350;
         media.height = 350;
+
         const ctx = media.getContext("2d");
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = "white";   
         ctx.fillRect(0, 0, 350, 350);
+
         break;
     }
 
