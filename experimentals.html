@@ -117,35 +117,42 @@
             }
 
            
-            media-card img,
-            media-card video,
-            media-card canvas,
-            media-card picture,
-            media-card figure,
-            media-card math {
-              max-width: 350px !important;
-              width: 350px !important;
-              height: auto !important;
-              display: block !important;
-              margin: 0 auto !important;
+        
+            media-card img {
+              display: block;
+              width: 350px;
+              max-width: 350px;
+              height: auto;
+              margin: 0 auto;
+              border-radius: 10px;
             }
+
+
+            media-card video {
+              display: block;
+              width: 350px;
+              max-width: 350px;
+              height: auto;
+              margin: 0 auto;
+            }
+
+
+            media-card canvas {
+              display: block;
+              width: 350px;
+              height: auto;
+              margin: 0 auto;
+            }
+
 
             media-card audio {
               width: 350px;
               height: 40px;
               display: block;
               margin: 0 auto;
-            }
-            media-card img {
-              display: block;
-              width: 350px;     
-              max-width: 350px; 
-              height: auto;     
-              margin: 0 auto;   
-              border-radius: 10px; 
-}
+              }     
             
-            media-card math
+            media-card math,
             media-card div math {
               font-size: 1.5rem;
               display: block;
@@ -231,8 +238,6 @@ class MediaCard extends HTMLElement {
 customElements.define("media-card", MediaCard);
 </script>
 
-customElements.define("media-card", MediaCard);
-</script>
 <script>
 const localExperimentals = [
   {
@@ -308,25 +313,6 @@ function renderCards(data) {
         ctx.fillStyle = "blue";
         ctx.fillRect(0, 0, 350, 350);
         break;
-
-      case "math":
-        media = document.createElement("math");
-        media.setAttribute("xmlns", "http://www.w3.org/1998/Math/MathML");
-        media.setAttribute("display", "block");
-        media.innerHTML = `
-        <mrow>
-        <mi>E</mi>
-        <mo>=</mo>
-        <mrow>
-          <mi>m</mi>
-          <msup>
-            <mi>c</mi>
-            <mn>2</mn>
-          </msup>
-        </mrow>
-      </mrow>
-      `;
-      break;
     }
 
     card.insertBefore(media, card.firstChild);
