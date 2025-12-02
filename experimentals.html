@@ -138,6 +138,7 @@
             media-card canvas {
               height: auto;
               display: block;
+              margin: 0 auto;
             }
 
             media-card audio {
@@ -269,7 +270,6 @@ function renderCards(data) {
         media = document.createElement("img");
         media.src = item.src;
         media.alt = item.title;
-        console.log("RENDERING TYPE:", item.type);
         break;
 
       case "audio":
@@ -299,7 +299,7 @@ function renderCards(data) {
         break;
     }
 
-    card.prepend(media);
+    card.insertBefore(media, card.firstChild);
     grid.appendChild(card);
   });
 }
