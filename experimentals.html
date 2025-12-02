@@ -290,6 +290,9 @@ function renderCards(data) {
 
     let media;
 
+    console.log("REMOTE ITEM:", item);
+    console.log("TYPE EXACT:", JSON.stringify(item.type));
+
     switch (item.type) {
       case "image":
         media = document.createElement("img");
