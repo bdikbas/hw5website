@@ -179,6 +179,8 @@
 <script>
 class MediaCard extends HTMLElement {
   connectedCallback() {
+
+    
     if (this._initialized) return;
     this._initialized = true;
 
@@ -186,25 +188,27 @@ class MediaCard extends HTMLElement {
     const desc = this.getAttribute("desc") || "";
     const url = this.getAttribute("url") || "#";
 
-    if (title) {
-      const h2 = document.createElement("h2");
-      h2.textContent = title;
-      this.insertBefore(h2, this.firstChild);
-    }
+    
+    const h2 = document.createElement("h2");
+    h2.textContent = title;
+    this.insertBefore(h2, this.firstChild);
 
-    if (desc) {
-      const p = document.createElement("p");
-      p.className = "card-desc";
-      p.textContent = desc;
-      this.appendChild(p);
-    }
+   
+    const p = document.createElement("p");
+    p.className = "card-desc";
+    p.textContent = desc;
+    this.appendChild(p);
+
 
     const link = document.createElement("a");
     link.href = url;
-    link.textContent = "More info →";
+    link.textContent = "More Info →";
     this.appendChild(link);
   }
 }
+
+customElements.define("media-card", MediaCard);
+</script>
 
 customElements.define("media-card", MediaCard);
 </script>
@@ -285,7 +289,7 @@ function renderCards(data) {
         break;
     }
 
-    this.prepend(h2);
+    card.insertBefore(media, card.firstChild);
     grid.appendChild(card);
   });
 }
