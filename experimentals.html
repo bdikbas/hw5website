@@ -253,7 +253,7 @@ function renderCards(data) {
 
     switch (item.type) {
       case "image":
-        media = document.createElement("image");
+        media = document.createElement("img");
         media.src = item.src;
         media.alt = item.title;
         break;
@@ -285,7 +285,7 @@ function renderCards(data) {
         break;
     }
 
-    card.insertBefore(media, card.firstChild);
+    this.prepend(h2);
     grid.appendChild(card);
   });
 }
