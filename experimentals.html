@@ -268,6 +268,7 @@ function renderCards(data) {
       case "image":
         media = document.createElement("img");
         media.src = item.src;
+        media.alt = item.title;
         break;
 
       case "audio":
