@@ -145,7 +145,8 @@
               border-radius: 10px; 
 }
             
-            media-card math {
+            media-card math
+            media-card div math {
               font-size: 1.5rem;
               display: block;
               margin: 0 auto;
@@ -251,6 +252,12 @@ const localExperimentals = [
     desc: "Video loaded locally",
     type: "video",
     src: "tribe.mp4"
+  },
+  {
+  title: "Einstein Equation",
+  desc: "MathML loaded locally",
+  type: "math",
+  src: "<math xmlns='http://www.w3.org/1998/Math/MathML'><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></math>"
   }
 ];
 
