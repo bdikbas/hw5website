@@ -333,18 +333,26 @@ document.getElementById("load-local").addEventListener("click", () => {
   renderCards(data);
 });
 
+
 document.getElementById("load-remote").addEventListener("click", async () => {
   try {
     const response = await fetch(REMOTE_URL);
     const json = await response.json();
 
-    const data = json.record || json;  
+    const data = json.record;
+
+    if (!Array.isArray(data)) {
+      console.error("Remote data is not an array:", data);
+      return;
+    }
+
     renderCards(data);
-  } catch(err) {
+  } catch (err) {
     console.error("Remote fetch failed:", err);
   }
 });
 </script>
+
 
 <script>
 if (document.startViewTransition) {
