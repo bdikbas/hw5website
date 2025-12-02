@@ -245,20 +245,20 @@ customElements.define("media-card", MediaCard);
 <script>
 const localExperimentals = [
   {
-    title: "Burak & Cat",
-    desc: "Image loaded locally",
+    title: "Image",
+    desc: "Burak and his cat Zeytoon",
     type: "image",
     src: "burak.webp"
   },
   {
-    title: "Audio Track",
-    desc: "Audio loaded locally",
+    title: "Audio",
+    desc: "Daniel Caesar - Horsepower",
     type: "audio",
     src: "DC-Horsepower.flac"
   },
   {
-    title: "Video Track",
-    desc: "Video loaded locally",
+    title: "Video",
+    desc: "A Tribe Called Quest - Electric Relaxtion",
     type: "video",
     src: "tribe.mp4"
   },
@@ -286,7 +286,7 @@ function renderCards(data) {
 
     console.log("REMOTE ITEM:", item);
     console.log("TYPE EXACT:", JSON.stringify(item.type));
-    
+
     const card = document.createElement("media-card");
     card.setAttribute("title", item.title);
     card.setAttribute("desc", item.desc);
