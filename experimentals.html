@@ -224,19 +224,19 @@ customElements.define("media-card", MediaCard);
 <script>
 const localExperimentals = [
   {
-    title: "Local – Burak & Cat",
+    title: "Burak & Cat",
     desc: "Loaded from localStorage",
     type: "image",
     src: "burak.jpg"
   },
   {
-    title: "Local – Audio Track",
+    title: "Audio Track",
     desc: "Audio loaded locally",
     type: "audio",
     src: "DC-Horsepower.flac"
   },
   {
-    title: "Local – Video Track",
+    title: "Video Track",
     desc: "Video loaded locally",
     type: "video",
     src: "tribe.mp4"
@@ -246,7 +246,7 @@ const localExperimentals = [
 localStorage.setItem("experimentals", JSON.stringify(localExperimentals));
 </script>
 
-<!-- REMOTE DATASET (YOU WILL REPLACE URL WHEN READY) -->
+
 <script>
 const REMOTE_URL = "https://api.jsonbin.io/v3/b/REPLACE_ME/latest";
 </script>
