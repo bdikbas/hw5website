@@ -283,6 +283,10 @@ function renderCards(data) {
   grid.innerHTML = "";
 
   data.forEach(item => {
+
+    console.log("REMOTE ITEM:", item);
+    console.log("TYPE EXACT:", JSON.stringify(item.type));
+    
     const card = document.createElement("media-card");
     card.setAttribute("title", item.title);
     card.setAttribute("desc", item.desc);
@@ -290,11 +294,6 @@ function renderCards(data) {
 
     let media;
 
-    console.log("REMOTE ITEM:", item);
-    console.log("TYPE EXACT:", JSON.stringify(item.type));
-    console.log("REMOTE FULL DATA:", json);
-    console.log("REMOTE RECORD:", json.record); 
-    const cleanType = (item.type || "").trim().toLowerCase().normalize();
     switch (item.type) {
       case "image":
         media = document.createElement("img");
@@ -341,15 +340,13 @@ document.getElementById("load-local").addEventListener("click", () => {
 
 document.getElementById("load-remote").addEventListener("click", async () => {
   try {
-    const response = await fetch(REMOTE_URL);
+    const response = await fetch(REMOTE_URL + "?v=" + Date.now());
     const json = await response.json();
 
-    const data = json.record;
+    console.log("REMOTE FULL DATA:", json);
+    console.log("REMOTE RECORD:", json.record);
 
-    if (!Array.isArray(data)) {
-      console.error("Remote data is not an array:", data);
-      return;
-    }
+    const data = json.record;  
 
     renderCards(data);
   } catch (err) {
