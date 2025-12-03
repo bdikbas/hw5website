@@ -270,7 +270,9 @@ const localExperimentals = [
 }
 ];
 
-localStorage.setItem("experimentals", JSON.stringify(localExperimentals));
+if (!localStorage.getItem("experimentals")) {
+  localStorage.setItem("experimentals", JSON.stringify(localExperimentals));
+}
 </script>
 
 
