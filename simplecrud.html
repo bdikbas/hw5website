@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Experimentals – Simple CRUD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 15px;
+      line-height: 1;
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    p {
+      max-width: 500px;
+      font-size: 0.95rem;
+    }
+    form {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      max-width: 480px;
+    }
+    label {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    input, textarea, select {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 0.25rem;
+      padding: 0.4rem 0.5rem;
+      font-size: 0.9rem;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    button {
+      margin-top: 0.75rem;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    pre {
+      background: white;
+      padding: 1rem;
+      border-radius: 6px;
+      max-width: 480px;
+      overflow-x: auto;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Experimentals – Simple CRUD</h1>
+  <p>
+    This page edits the same <code>localStorage</code> data that
+    <strong>experimentals.html</strong> uses when you click
+    <strong>"Load Local"</strong>. It works on the
+    <code>localStorage["experimentals"]</code> array of media items.
+    After making a change here, go back to <code>experimentals.html</code>
+    and press <strong>"Load Local"</strong> to see the updated cards.
+  </p>
+
+  <form id="crud-form">
+    <label>
+      Action
+      <select id="action">
+        <option value="create">Create (add new item)</option>
+        <option value="update">Update (edit existing item)</option>
+        <option value="delete">Delete (remove item)</option>
+      </select>
+    </label>
+
+    <label>
+      Title (used to find the item – must match exactly)
+      <input type="text" id="title" required placeholder="e.g. Image, Audio, My New Card">
+    </label>
+
+    <label>
+      Description (desc)
+      <textarea id="desc" placeholder="e.g. Burak and his cat Zeytoon"></textarea>
+    </label>
+
+    <label>
+      Type
+      <select id="type">
+        <option value="">(leave blank to keep current on update)</option>
+        <option value="image">image</option>
+        <option value="audio">audio</option>
+        <option value="video">video</option>
+        <option value="canvas">canvas</option>
+      </select>
+    </label>
+
+    <label>
+      Source (src:file name or URL)
+      <input type="text" id="src" placeholder="e.g. burak.webp, DC-Horsepower.flac, tribe.mp4">
+    </label>
+
+    <button type="submit">Run Action</button>
+    <div id="message"></div>
+  </form>
+
+  <h2>Current Local Data (localStorage["experimentals"])</h2>
+  <button id="refresh-btn">Refresh Data View</button>
+  <pre id="data-output">[]</pre>
+
+  <script>
+    const STORAGE_KEY = "experimentals";
+
+    const form = document.getElementById("crud-form");
+    const actionSelect = document.getElementById("action");
+    const messageEl = document.getElementById("message");
+    const dataOutput = document.getElementById("data-output");
+    const refreshBtn = document.getElementById("refresh-btn");
+
+    function getData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        console.error("Failed to parse localStorage data:", e);
+        return [];
+      }
+    }
+
+    function setData(arr) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    }
+
+    function showData() {
+      const data = getData();
+      dataOutput.textContent = JSON.stringify(data, null, 2);
+    }
+
+    function setMessage(text, isError) {
+      messageEl.textContent = text;
+      messageEl.style.color = isError ? "red" : "green";
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const action = actionSelect.value; 
+      const title = document.getElementById("title").value.trim();
+      const desc = document.getElementById("desc").value.trim();
+      const type = document.getElementById("type").value.trim();
+      const src = document.getElementById("src").value.trim();
+
+      if (!title) {
+        setMessage("Title is required (used to identify the item).", true);
+        return;
+      }
+
+      let data = getData();
+
+      if (action === "create") {
+        const exists = data.some(item => item.title === title);
+        if (exists) {
+          setMessage("An item with that title already exists. Use Update instead.", true);
+          return;
+        }
+
+        const newItem = {
+          title: title,
+          desc: desc || "",
+          type: type || "image", 
+          src: src || ""
+        };
+
+        data.push(newItem);
+        setData(data);
+        showData();
+        setMessage(
+          'Created new item with title "' + title +
+          '". Go back to experimentals.html and click "Load Local" to see it.',
+          false
+        );
+
+      } else if (action === "update") {
+        const index = data.findIndex(item => item.title === title);
+        if (index === -1) {
+          setMessage("No item found with that title to update.", true);
+          return;
+        }
+
+        const current = data[index];
+        data[index] = {
+          title: current.title,                
+          desc: desc || current.desc || "",
+          type: type || current.type || "image",
+          src: src || current.src || ""
+        };
+
+        setData(data);
+        showData();
+        setMessage(
+          'Updated item with title "' + title +
+          '". Go back to experimentals.html and click "Load Local" to see changes.',
+          false
+        );
+
+      } else if (action === "delete") {
+        const before = data.length;
+        data = data.filter(item => item.title !== title);
+        if (data.length === before) {
+          setMessage("No item found with that title to delete.", true);
+          return;
+        }
+
+        setData(data);
+        showData();
+        setMessage(
+          'Deleted item with title "' + title +
+          '". Go back to experimentals.html and click "Load Local" to see changes.',
+          false
+        );
+      }
+    });
+
+    refreshBtn.addEventListener("click", showData);
+
+    showData();
+  </script>
+</body>
+</html>
+
