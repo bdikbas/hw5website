@@ -12,138 +12,144 @@
         }
         customElements.define('hello-world', HelloWorld);
       </script>
-      <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-        :root {
-          --primary-color:blue;
-          --accent-color: #ff6600;
-          --main-font: 'Poppins', sans-serif;
-          --card-radius:1rem;
-        }
-        body{
-          font-family: var(--main-font, Arial, sans-serif);
-          background-color: var(--bg-color, red);
-          margin:0;
-          padding:0;
-          font-size: 1.25rem;
-          line-height: 1.6;
-        }
-        
-        header {
-          background: var(--primary-color, grey);
-          color: white;
-          padding: 2em 0;
-          text-align: center;
-          transition: background-color 0.25s ease;
-        }
-        header:hover {
-          background-color: var(--acent-color, red);
-        }
-        nav ul {
-          list-style-type: none;
-          padding: 0;
-          margin: 1em auto;
-          display: flex;
-          justify-content: center;
-          gap: 1.5em;
-        }
-        nav a {
-          color: white;
-          text-decoration: none;
-          font-weight:bold;
-          font-size: 1.5rem;
-          transition: transform 0.2s ease, color 0.2s ease;
-        }
-        main {
-          padding: 2.2em 7%;
-          min-height: 70dvh;
-        }
-          h1 {
-            text-align: center;
-            font-size: 3rem;
-          }
-          h2 {
-            text-align: center;
-            font-size: 1.5rem;
-          }
-          article {
-            font-size: 1.2em;
-            max-width: 67%;
-            margin: 0 auto;
-            padding: 2em;
-            border-radius: var(--card-radius, 1.2rem);
-            background-color: white;
-            animation: fadeIn 1.5s ease-in;
-          }
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-              transform: translateY(2.5rem);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-          article h3 {
-            color: var(--primary-color, blue);
-            margin-top: 1.2em;
-          }
-          article ol {
-            margin-left: 2em;
-          }
-          article p,
-          article li {
-            color: #333;
-          }
-          @media (max-width: 800px){
-            nav u1 {
-              flex-direction: column;
-            }
-            article {
-              max-width: 85%;
-              font-size: 1rem;
-            }
-            h1 {
-              font-size: 2.2rem;
-            }
-          }
-          section:has(iframe) {
-            border: 5px solid var(--accent-color, yellow);
-            padding: 1em;
-          }
-          fun-image{
-            display: block;
-            width: 500px;
-            height: 500px;
-            margin: 50px auto;
-            background-image: url("burak.JPG");
-            background-size: cover;
-            border-radius: 15px;
-            border: 5px solid #000;
-          }
-          img{
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-radius: var(--card-radius, 1.2rem);
-          }
-          @media (max-width: 800px)  {
-            picture img {
-              width: 92%;
-              height: auto;
-              border-width: 7px;
-            }
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+    :root {
+      --primary-color:blue;
+      --accent-color: #ff6600;
+      --main-font: 'Poppins', sans-serif;
+      --card-radius:1rem;
+    }
+    body{
+      font-family: var(--main-font, Arial, sans-serif);
+      background-color: var(--bg-color, red);
+      margin:0;
+      padding:0;
+      font-size: 1.25rem;
+      line-height: 1.6;
+    }
     
-          }
-          footer {
-            text-align: center;
-            padding: 2em 0;
-            background-color: var(--primary-color,blue);
-            color:white;
-            font-size: 1.2em;
-          }
-        </style>
+    header {
+      background: var(--primary-color, grey);
+      color: white;
+      padding: 2em 0;
+      text-align: center;
+      transition: background-color 0.25s ease;
+    }
+    header:hover {
+      background-color: var(--accent-color, red);
+    }
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 1em auto;
+      display: flex;
+      justify-content: center;
+      gap: 1.5em;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight:bold;
+      font-size: 1.5rem;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--accent-color);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    main {
+      padding: 2.2em 7%;
+      min-height: 70dvh;
+    }
+      h1 {
+        text-align: center;
+        font-size: 3rem;
+      }
+      h2 {
+        text-align: center;
+        font-size: 1.5rem;
+      }
+      article {
+        font-size: 1.2em;
+        max-width: 67%;
+        margin: 0 auto;
+        padding: 2em;
+        border-radius: var(--card-radius, 1.2rem);
+        background-color: white;
+        animation: fadeIn 1.5s ease-in;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(2.5rem);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      article h3 {
+        color: var(--primary-color, blue);
+        margin-top: 1.2em;
+      }
+      article ol {
+        margin-left: 2em;
+      }
+      article p,
+      article li {
+        color: #333;
+      }
+      @media (max-width: 800px){
+        nav ul {
+          flex-direction: column;
+        }
+        article {
+          max-width: 85%;
+          font-size: 1rem;
+        }
+        h1 {
+          font-size: 2.2rem;
+        }
+      }
+      section:has(iframe) {
+        border: 5px solid var(--accent-color, yellow);
+        padding: 1em;
+      }
+      fun-image{
+        display: block;
+        width: 500px;
+        height: 500px;
+        margin: 50px auto;
+        background-image: url("burak.JPG");
+        background-size: cover;
+        border-radius: 15px;
+        border: 5px solid #000;
+      }
+      img{
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: var(--card-radius, 1.2rem);
+      }
+      @media (max-width: 800px)  {
+        picture img {
+          width: 92%;
+          height: auto;
+          border-width: 7px;
+        }
+
+      }
+      footer {
+        text-align: center;
+        padding: 2em 0;
+        background-color: var(--primary-color,blue);
+        color:white;
+        font-size: 1.2em;
+      }
+    </style>
 </head>
 
 <body>
